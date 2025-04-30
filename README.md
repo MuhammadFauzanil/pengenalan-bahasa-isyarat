@@ -4,7 +4,7 @@ Proyek ini merupakan bagian dari Tugas Akhir dengan fokus pada **pengenalan Baha
 
 Dataset digunakan dalam bentuk **video gerakan isyarat**, yang kemudian diekstrak menjadi rangkaian titik kunci (keypoints) menggunakan **MediaPipe**. Model RNN kemudian dilatih untuk mengenali pola urutan dari keypoints tersebut.
 
-
+![Preview](./static/assets/preview.png)
 
 ## Keterbatasan
 
