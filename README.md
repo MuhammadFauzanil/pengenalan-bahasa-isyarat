@@ -47,7 +47,7 @@ Berikut adalah urutan langkah untuk menjalankan proyek ini:
 5. ### Dashboard Aplikasi
    Untuk menjalankan **dashboard visualisasi dan kontrol** dari aplikasi:
    ```bash
-   streamlit run app.py
+   python app.py
    ```
 
 
