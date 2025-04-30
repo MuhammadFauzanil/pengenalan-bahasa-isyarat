@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gesture Recognition Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+   
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <div class="d-flex flex-column" style="height: 100vh;">
+        <div id="navbar" class="navbar navbar-expand-lg navbar-danger" style="background-color: #00376a;">
+            <div class="container-fluid d-flex justify-content-between align-items-center" style="background-color: #00376a;">
+                <a class="navbar-brand" href="#">
+                    <img src="{{ url_for('static', filename='assets/logo-STEM-putih.png') }}" class="img-fluid rounded" alt="Logo STEM" width="250">
+                </a>
+                <div class="my-auto"> 
+                    <p class="mb-0 fw-bold fs-5" style="color: #ffffff; font-family: 'Montserrat', sans-serif;">Pengenalan Bahasa Isyarat dengan Metode RNN</p>
+                </div>
+            </div>
+        </div>
+        
+        <div id="main" class="container-fluid d-flex justify-content-center align-items-center" style="background-color: #e6e6e6; padding-bottom: 27px;">
+            <!-- Video Feed Section -->
+            <div class="border my-2 border-4 border-light rounded d-flex justify-content-center align-items-center" style="background-color: #00376a;">
+                <div class="p-1">
+                    <img src="{{ url_for('video_feed') }}">
+                </div>
+            </div>
+            <div style="width: 50px; height: 1px;">
+
+            </div>
+            
+            <!-- Prediction and Accuracy Section -->
+            <div class="border p-3 rounded" style="background-color: #ffffff; height: 200px; width: 400px;">
+                <h5 class="text-center fw-bold fs-3" style="color: #00376a; font-family: 'Montserrat', sans-serif;">Prediksi dan Akurasi</h5>
+                <div id="prediction-result" style="font-family: 'Montserrat', sans-serif;">
+                    <p class="fs-5"><strong>Hasil Prediksi: </strong><span id="prediction_label">Menunggu...</span></p>
+                    <p class="fs-5"><strong>Akurasi: </strong><span id="prediction_confidence">0.00%</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div id="footer" class="text-white d-flex justify-content-between px-2 py-4" style="background-color: #00376a;">
+                <p class="mb-0 fw-bold fs-6" style="color: #ffffff; font-family: 'Montserrat', sans-serif;">Tugas Akhir S1 Rekayasa Sistem Komputer</p>
+                <p class="mb-0 fw-bold fs-6" style="color: #ffffff; font-family: 'Montserrat', sans-serif;">Sekolah STEM Terapan Universitas Prasetiya Mulya</p>
+        </div>
+        
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <!-- JavaScript to update prediction and accuracy -->
+    <script>
+        function updatePrediction() {
+            fetch('/latest_prediction')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('prediction_label').textContent = data.prediction;
+                    document.getElementById('prediction_confidence').textContent = data.confidence.toFixed(2) + '%';
+                })
+                .catch(error => console.log(error));
+        }
+
+        // Update prediction every 1 second
+        setInterval(updatePrediction, 1000);
+    </script>
+</body>
+</html>
